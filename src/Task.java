@@ -38,15 +38,16 @@ public class Task {
         return !deadline.isBefore(now) && duration.toHours() <= 24;
     }
 
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
-        return "Task{" +
-               "id=" + id +
+        return "Task{id=" + id +
                ", title='" + title + '\'' +
-               ", deadline=" + deadline.format(formatter) +
+               ", deadline=" + deadline.format(formatter) +  
                ", priority=" + priority +
                ", status=" + status +
                '}';
     }
+    
 }

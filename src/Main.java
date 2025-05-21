@@ -1,14 +1,12 @@
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-
-        List<Task> tasks = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
+
+        DbHelper.initializeDatabase();
 
         while (true) {
             System.out.print("Enter Title: ");
@@ -16,7 +14,7 @@ public class Main {
 
             System.out.print("Enter Deadline (in Hours): ");
             int time = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine(); 
 
             System.out.println("Select Priority (Default - MEDIUM):");
             System.out.println("1. HIGH");
@@ -24,7 +22,7 @@ public class Main {
             System.out.println("3. LOW");
             System.out.print("Choice No. - ");
             int c = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine(); 
 
             Priority priority;
             switch (c) {
@@ -43,21 +41,22 @@ public class Main {
                     .withMinute(0);
 
             Task task = new Task(title, deadline, priority, Status.ONGOING);
-            tasks.add(task);
 
-            System.out.println("Task fed successfully!");
+            
+            DbHelper.insertTask(task);
+
+            System.out.println("Task saved successfully!");
             System.out.print("Add another task? (Y/N): ");
             String answer = scanner.nextLine();
-            if (!answer.equalsIgnoreCase("Y")) {
-                break;
-            }
+            if (!answer.equalsIgnoreCase("Y")) break;
         }
 
-        System.out.print("Do you want to print all the tasks? (Y/N): ");
+        System.out.print("Do you want to print all tasks from DB? (Y/N): ");
         String answer1 = scanner.nextLine();
         if (answer1.equalsIgnoreCase("Y")) {
+            List<Task> allTasks = DbHelper.loadTasks();
             System.out.println("\nAll Tasks:");
-            for (Task t : tasks) {
+            for (Task t : allTasks) {
                 System.out.println(t);
             }
         }
