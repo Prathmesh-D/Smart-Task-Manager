@@ -88,3 +88,13 @@ SmartTaskManager/
 ├── resources/
 │   └── icons/        # App icons
 └── README.md
+
+```
+
+---
+
+## 🙋‍♂️ Author
+Prathmesh Deshkar <br>
+🔗 [My Profile](https://github.com/Prathmesh-D)
+
+---
